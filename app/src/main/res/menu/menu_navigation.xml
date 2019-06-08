@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <!-- #1e90ff/#476dd6 -->
+    <group>
+        <item
+            android:id="@+id/actionNewItem"
+            android:orderInCategory="1"
+            android:title="Текущие цели"
+            android:icon="@drawable/ic_fiber_new_white_24dp" />
+        <item
+            android:id="@+id/actionEventsItem"
+            android:orderInCategory="1"
+            android:title="Лента"
+            android:icon="@drawable/ic_events" />
+        <item
+            android:id="@+id/actionProfileItem"
+            android:orderInCategory="1"
+            android:title="Профиль"
+            android:icon="@drawable/ic_account_box_white_24dp" />
+    </group>
+    <item
+        android:id="@+id/logout"
+        android:orderInCategory="1"
+        android:title="Выйти"
+        android:icon="@drawable/ic_exit_to_app_black_24dp" />
+</menu>
