@@ -55,6 +55,8 @@ public class Vk_Auth extends AppCompatActivity  implements View.OnClickListener 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Intent intent = new Intent(Vk_Auth.this, HomeActivity.class);
+
         if (!VKSdk.onActivityResult(requestCode, resultCode, data, new VKCallback<VKAccessToken>() {
             @Override
             public void onResult(VKAccessToken res) {
@@ -73,9 +75,11 @@ public class Vk_Auth extends AppCompatActivity  implements View.OnClickListener 
                             String name = object.getString("last_name") + " " + object.getString("first_name");
                             String url = object.getString("photo_200");
 
+
+
                             sessionManager.addString("URL", url);
 
-                            sessionManager.createSession(name, "mr_volland@mail.ru");
+                            sessionManager.createSession(name, "example@mail.ru");
 
                             //mName.setText(name);
                             //Glide.with(getApplicationContext()).load(url).into(mAvatar);
@@ -94,6 +98,12 @@ public class Vk_Auth extends AppCompatActivity  implements View.OnClickListener 
         })) {
             super.onActivityResult(requestCode, resultCode, data);
         }
+
+        sessionManager.setLoginBoolean("IS_LOGIN", true);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("name", sessionManager.getString("NAME"));
+        intent.putExtra("url", sessionManager.getString("URL"));
+        startActivity(intent);
     }
 
     @Override

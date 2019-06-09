@@ -3,6 +3,7 @@ package hse.t.targetscomplete;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -32,12 +33,20 @@ public class SessionManager {
         editor.apply();
     }
 
+    public void setLoginBoolean(String key, Boolean value){
+        Log.d("Session", value.toString());
+        editor.putBoolean(key, value);
+        editor.apply();
+    }
+
     public void addString(String key, String value){
+        Log.d("Session", value);
         editor.putString(key, value);
         editor.apply();
     }
 
     public String getString(String key){
+        Log.d("Записалось:", sharedPreferences.getString(key, ""));
         return sharedPreferences.getString(key, "");
     }
 
@@ -46,6 +55,7 @@ public class SessionManager {
     }
 
     public void addInteger(String key, int value){
+        Log.d("Session", String.valueOf(value));
         editor.putInt(key, value);
         editor.apply();
     }

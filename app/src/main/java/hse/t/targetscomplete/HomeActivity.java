@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,11 +38,33 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     SessionManager sessionManager;
 
+    Button mAddTarget;
+
+    /*
+     * Обновление активити
+     * */
+    private void Reload() {
+        Intent intent = new Intent(HomeActivity.this, HomeActivity.class);
+        overridePendingTransition(0, 0);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        mAddTarget = (Button)findViewById(R.id.add_target);
+
+        mAddTarget.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         initToolbar();
 
@@ -68,6 +91,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         sessionManager = new SessionManager(this);
         sessionManager.checkLogin();
+
+        if(sessionManager.getString("MOON") != "1"){
+            Reload();
+            sessionManager.addString("MOON", "1");
+        } else {
+            sessionManager.addString("MOON", "0");
+        }
 
         //Записали сессии авторизированного пользователя
         HashMap<String, String> user = sessionManager.getUserDetail();
