@@ -1,7 +1,10 @@
 package hse.t.targetscomplete;
 
+import android.app.Activity;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,23 +22,36 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+import com.vk.sdk.VKAccessToken;
+import com.vk.sdk.VKCallback;
+import com.vk.sdk.VKScope;
+import com.vk.sdk.VKSdk;
+import com.vk.sdk.VKServiceActivity;
+import com.vk.sdk.api.VKApi;
+import com.vk.sdk.api.VKApiConst;
+import com.vk.sdk.api.VKError;
+import com.vk.sdk.api.VKParameters;
+import com.vk.sdk.api.VKRequest;
+import com.vk.sdk.api.VKResponse;
+import com.vk.sdk.util.VKUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LoginActivity extends AppCompatActivity {
-
+public class LoginActivity extends Activity {
 
     private EditText email, password;
     private Button log_btn;
     private TextView link_sign_up;
     private ProgressBar log_loading;
     private static String URL_LOGIN = "https://inmovery.ru/app/login.php";
-    SessionManager sessionManager;
+    SessionManager sessionManager;// для SharedPreferences
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +59,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         sessionManager = new SessionManager(this);
-
 
         log_loading = findViewById(R.id.log_loading);
         email = findViewById(R.id.log_email);
@@ -148,6 +163,4 @@ public class LoginActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
 
     }
-
-
 }

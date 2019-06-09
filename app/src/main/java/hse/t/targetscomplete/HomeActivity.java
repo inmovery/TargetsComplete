@@ -13,10 +13,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.HashMap;
@@ -24,18 +25,18 @@ import java.util.HashMap;
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     SwipeRefreshLayout mSwipeRefreshLayout;
-    //private static final int LAYOUT = R.layout.activity_home;
     private RecyclerView mRVFishPrice;
+    private ImageView mAvatar;
+
     //private RecyclerViewAdapter mAdapter;
 
-    private Button logout_btn;
-
-    private TextView name, email;
+    private TextView mName;
 
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
 
     SessionManager sessionManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.view_navigation_open, R.string.view_navigation_close);
+        final ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.view_navigation_open, R.string.view_navigation_close);
+        //toggle.setDrawerIndicatorEnabled(false);
+        //toggle.setHomeAsUpIndicator(R.drawable.icnop);
         drawerLayout.setDrawerListener(toggle);
         toggle.syncState();
 
@@ -66,27 +69,20 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         sessionManager = new SessionManager(this);
         sessionManager.checkLogin();
 
-        name = findViewById(R.id.name);
-        //email = findViewById(R.id.email);
-        //logout_btn = findViewById(R.id.logout);
-
         //Записали сессии авторизированного пользователя
         HashMap<String, String> user = sessionManager.getUserDetail();
-        String mName = user.get(sessionManager.NAME);
-        //String mEmail = user.get(sessionManager.EMAIL);
+        String name = user.get(sessionManager.NAME);
 
-        //Установили сессии
-        //name.setText(mName);
-        //email.setText(mEmail);
-
-        //Кнопка выйти из аккаунта
-        logout_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sessionManager.logout();
-            }
-        });
-
+        View hView = navigationView.getHeaderView(0);
+        mName = (TextView)hView.findViewById(R.id.name);
+        mAvatar = (ImageView)hView.findViewById(R.id.avatar_profile);
+        if(sessionManager.getString("URL").length() < 5){
+            mName.setText(name);
+            Glide.with(this).load(R.drawable.profile_image).into(mAvatar);
+        } else {
+            mName.setText(sessionManager.getString("NAME"));
+            Glide.with(this).load(sessionManager.getString("URL")).into(mAvatar);
+        }
     }
 
     private void initToolbar() {
@@ -99,8 +95,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 return false;
             }
         });
-
-        toolbar.inflateMenu(R.menu.menu);
     }
 
     @Override

@@ -31,6 +31,25 @@ public class SessionManager {
         editor.putString(EMAIL, email);
         editor.apply();
     }
+
+    public void addString(String key, String value){
+        editor.putString(key, value);
+        editor.apply();
+    }
+
+    public String getString(String key){
+        return sharedPreferences.getString(key, "");
+    }
+
+    public int getInteger(String key){
+        return sharedPreferences.getInt(key, 0);
+    }
+
+    public void addInteger(String key, int value){
+        editor.putInt(key, value);
+        editor.apply();
+    }
+
     //Если пользователь авторизован
     public boolean isLoggin(){
         return sharedPreferences.getBoolean(LOGIN, false);

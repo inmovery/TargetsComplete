@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
+import com.vk.sdk.util.VKUtil;
+
+import java.util.Arrays;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -17,9 +20,11 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        sessionManager = new SessionManager(this);
+//        String[] fingerprints = VKUtil.getCertificateFingerprint(this, this.getPackageName());
+//        Log.d("SPLASH_VK", String.valueOf(Arrays.asList(fingerprints)));
 
-        Log.d("LOGIN_IS_TRUE", String.valueOf(sessionManager.isLoggin()));
+        sessionManager = new SessionManager(this);
+        
         final Intent ir;
         if(sessionManager.isLoggin() == true){
             ir = new Intent(this, HomeActivity.class);

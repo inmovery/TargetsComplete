@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:layout_height="232dp"
+    android:layout_height="252dp"
     android:layout_width="match_parent"
     android:background="#6495ed"
-    android:paddingTop="10dp"
-    android:gravity="center">
+    android:paddingTop="30dp"
+    android:gravity="center"
+    tools:context=".HomeActivity">
     <ImageView
+        android:id="@+id/avatar_profile"
         android:layout_width="110dp"
         android:layout_height="110dp"
         android:src="@mipmap/ic_launcher_round"/>
