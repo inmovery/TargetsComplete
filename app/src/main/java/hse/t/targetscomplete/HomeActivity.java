@@ -8,6 +8,8 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import hse.t.targetscomplete.Dialog.OnSpinerItemClick;
+import hse.t.targetscomplete.Dialog.SpinnerDialog;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,12 +20,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.HashMap;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    private SpinnerDialog spinnerDialog;
 
     SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRVFishPrice;
@@ -62,7 +67,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         mAddTarget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent in = new Intent(HomeActivity.this, AddTargetActivity.class);
+                startActivity(in);
+                Animatoo.animateFade(HomeActivity.this);
             }
         });
 
@@ -113,6 +120,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             mName.setText(sessionManager.getString("NAME"));
             Glide.with(this).load(sessionManager.getString("URL")).into(mAvatar);
         }
+
     }
 
     private void initToolbar() {
